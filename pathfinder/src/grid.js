@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Navbar from './Navbar';
 
 const Grid = () => {
 
@@ -22,6 +23,7 @@ class Pair {
      // function to get index of clicked element 
      const index = (id) => {
           let ind = 0;
+          console.log(id);
           for(var i = 0;i<id.length;i++){
                if(id[i]===" "){
                     ind = i;
@@ -61,29 +63,34 @@ class Pair {
     const [doneChanging,setdoneChanging] = useState(0);
     const [canChange,setcanChange] = useState(true);
     const [startingNode,setStartingNode] = useState([]);
+    const [chooseAlgo, setChooseAlgo] = useState(-1); // changes for dfs
     const endingNode = [];
 
 
     var dx = [1,-1,0,0];
     var dy = [0,0,1,-1];
 
+
+
+    // function to check a valid node : ------------------
     const check = (x,y) => {
-         console.log(x+" "+y);
+     //     console.log(x+" "+y);
          if(x<0 || y<0 || x>=50 || y>=70 || Gridarr[x][y]===-1 || Gridarr[x][y]===1)return false;
          return true;
     }
+    // ---------------------------------------------------------
+
+
 
     const findPath = (last) => {
          var p = last.x + " " + last.y;
 
         if(last.x==startingNode[0] && last.y==startingNode[1])return; 
 
-         document.getElementById(p).style.background = "green";
-         var g = CalledBy[last.x][last.y];
-         
+         document.getElementById(p).style.background = "#60f149";
+         var g = CalledBy[last.x][last.y];  
 
-         findPath(g);
-         
+         findPath(g);  
     }
     
 
@@ -94,14 +101,24 @@ class Pair {
     var yellowNodes = [];
 
     const doSomething = async () => {
+         console.log(yellowNodes);
      for (const item of yellowNodes) {
        await sleep(10)
-       document.getElementById(item).style.background = "#be2fe2";   
+       console.log(item);
+       var g = index(item);
+       if(g[0]<0 || g[1]<0){
+          const item2 = -1*g[0] +" "+ (-1*g[1]);
+          document.getElementById(item2).style.background = "white";
+       }else{
+          document.getElementById(item).style.background = "#be2fe2";   
+       }
+         
      }
      var node = new Pair(endingNode[0],endingNode[1]);
      findPath(node);
    }
-    
+
+    // ------------------------------------------------------------- code for bfs : 
     const bfs = () => {
           var q = [];
           const firstnode = new Pair(startingNode[0],startingNode[1]);
@@ -109,8 +126,6 @@ class Pair {
           Gridarr[firstnode.x][firstnode.y] = 1;
           q.push(firstnode);
           var count = 0;
-
-          
 
           while(q.length!==0){
                const topElement = q[0];
@@ -127,7 +142,6 @@ class Pair {
                          if(node.x===lastnode.x && node.y === lastnode.y){
                               done = true;
                               doSomething();
-                              // findPath(node);
                               break;
                          }
                          yellowNodes.push(p);
@@ -138,8 +152,49 @@ class Pair {
                }
           }
     }
+    // ----------------------------------------------------------------- code for bfs ends here 
 
+    // ------------------------------------------------------------------ code for dfs starts here : 
+
+    const dfs = (node) => {
+
+     const firstnode = new Pair(startingNode[0],startingNode[1]);
+     const lastnode = new Pair(endingNode[0],endingNode[1]);
+
+     if(lastnode.x === node.x && node.y === lastnode.y){
+          doSomething();
+          return true;
+     }
+
+     yellowNodes.push(node.x + " " + node.y);
+
+     Gridarr[node.x][node.y] = 1;
+     
+     for(let i = 0;i<4;i++){
+          if(check(node.x + dx[i],node.y + dy[i])){
+               Gridarr[node.x + dx[i]][node.y + dy[i]] = 1;
+               const nextNode = new Pair(node.x + dx[i],node.y + dy[i]);
+               if(dfs(nextNode)){
+                    CalledBy[nextNode.x][nextNode.y] = node;
+                    return true;
+               }else{
+                    const makeItWhite = new Pair(-1*(node.x + dx[i]),-1*(node.y + dy[i]));
+                    yellowNodes.push(makeItWhite.x +" "+ makeItWhite.y);
+               }
+          }
+     }
+
+     return false;
+     
+    }
+
+
+    // -----------------------------------------------------------------------code for dfs ends here : 
      const changeColor = (e) => {
+          if(chooseAlgo === -1){
+               alert("First choose an alorithm :) ");
+               return;
+          }
           Gridarr = mainArr;
           if(!canChange)return;
           var g = e.target.id;
@@ -151,7 +206,7 @@ class Pair {
           if(doneChanging===0){
                Gridarr[v[0]][v[1]] = -1;
                setMainArr(Gridarr);
-               e.target.style.background = "black";
+               e.target.style.background = "#293527";
           }else if(doneChanging===1){
                setStartingNode(v);
                e.target.style.background = "red";
@@ -164,26 +219,25 @@ class Pair {
                setcanChange(false);
                console.log("endingNode : " + endingNode);
                Gridarr = mainArr;
-               bfs();
+               if(chooseAlgo==1){
+                  bfs();  
+               }else{
+                    const node = new Pair(startingNode[0],startingNode[1]);
+                   dfs(node); 
+               }
+               
           }
           
      }
-
      
-
-
 
     
     return ( 
         <div>
-             <button  onClick = {()=>(setdoneChanging(1), console.log(Gridarr))}>Done! Creating Barriers</button>
-               <form action="/action_page.php">
-               <label for="cars">Choose an algorithm to work with : </label>
-               <select id="cars" name="cars">
-               <option value="volvo">BFS</option>
-               <option value="saab">DFS</option>
-               </select>
-               </form>
+             <Navbar/>
+             <button  onClick = {()=>(setdoneChanging(1))}>Done! Creating Barriers</button>
+               <button onClick = {()=> (setChooseAlgo(2))}>DFS</button>
+               <button onClick = {()=> (setChooseAlgo(1))}>BFS</button>
           <div className = "OuterBox">
             {arr.map((array) => (
                  <div className = "innerBox">
