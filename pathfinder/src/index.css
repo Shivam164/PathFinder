@@ -32,6 +32,7 @@ div {
 }
 
 .OuterBox {
+  display: block;
   margin-left: 7%;
   margin-top: 2%;
 }
@@ -135,4 +136,80 @@ div {
   position: absolute;
   z-index: 1;
   padding-left: 30rem;
+}
+
+._save {
+  display: block;
+}
+
+.blurred {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 2;
+  background-color: black;
+  opacity: 0.7;
+}
+
+.outerform {
+  background-color: white;
+  width: 25vw;
+  height: 20vh;
+  position: absolute;
+  z-index: 3;
+  top: 30%;
+  left: 30%;
+  padding: 5rem;
+  border: 2px solid white;
+  border-radius: 10px;
+  background-color: #72d1ae;
+}
+
+.innerform {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  opacity: 10;
+  z-index: 3;
+}
+
+.heading {
+  color: #025336;
+  font-size: xx-large;
+  margin-left: 5rem;
+  padding-bottom: 2rem;
+}
+
+.Grid {
+  position: relative;
+}
+
+.changeIndex {
+  display: none;
+  position: relative;
+}
+
+.innerform > button {
+  display: block;
+}
+
+.buttons > input {
+  margin-left: 1.5rem;
+  outline-width: 0;
+  color: rgb(44, 42, 42);
+}
+
+.buttons {
+  padding-bottom: 2rem;
+}
+
+.innerform > button {
+  all: unset;
+  background-color: #025336;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 15px;
+  margin-bottom: 0.5rem;
 }
