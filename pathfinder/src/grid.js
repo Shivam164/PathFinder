@@ -65,6 +65,7 @@ for(let i = 0;i<50;i++){
     const [canChange,setcanChange] = useState(true);
     const [startingNode,setStartingNode] = useState([]);
     const [chooseAlgo, setChooseAlgo] = useState(-1); // changes for dfs
+    const [algoset,setAlgoset] = useState(true);
     const [stop, setStop] = useState(false);
     const endingNode = [];
 
@@ -200,7 +201,7 @@ for(let i = 0;i<50;i++){
 
      const changeColor = (e) => {
           if(chooseAlgo === -1 || chooseAlgo === -2){
-               setChooseAlgo(-2);
+               setAlgoset(true);
                return;
           }
           Gridarr = mainArr;
@@ -255,8 +256,8 @@ for(let i = 0;i<50;i++){
     return ( 
         <div>
              
-          <Navbar done = {()=>(setdoneChanging(1))} dfs = {()=>(setChooseAlgo(2))} bfs = {()=>(setChooseAlgo(1))} clear = {() => clear()}  arrays = {Gridarr} />
-          {chooseAlgo === -2 && <p className='choose'>* FIRST CHOOSE A TRAVERSAL</p>}
+          <Navbar done = {()=>(setdoneChanging(1))} dfs = {()=>{setChooseAlgo(2); setAlgoset(false)}} bfs = {()=>{setChooseAlgo(1); setAlgoset(false)}} clear = {() => clear()}  arrays = {Gridarr} algo = {chooseAlgo}/>
+          {algoset && <p className='choose'>* FIRST CHOOSE A TRAVERSAL</p>}
           <div className = "OuterBox">
             {arr.map((array) => (
                  <div className = "innerBox">
