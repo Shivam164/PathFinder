@@ -1,108 +1,138 @@
-*{
-  margin : 0;
-  padding : 0;
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Outfit", sans-serif;
 }
 
-.NodeButton{
-  all : unset;
+.NodeButton {
+  all: unset;
 }
 
-._node{
+._node {
   border: 1px solid aqua;
   background-color: white;
-  width : 10px;
+  width: 10px;
   height: 10px;
-  padding : 2px;
-  margin : 0px;
+  padding: 2px;
+  margin: 0px;
   transition: all 1s;
 }
 
-
-
-.innerBox{
+.innerBox {
   margin: 0px;
-  padding : 0px;
+  padding: 0px;
 }
 
-div{
-  margin : 0px;
-  padding : 0px;
+div {
+  margin: 0px;
+  padding: 0px;
   height: 12px;
 }
 
-.OuterBox{
+.OuterBox {
   margin-left: 7%;
-  margin-top : 2%;
+  margin-top: 2%;
 }
 
-.menuBar{
-  background : #5EF1E0;
+/* NAVBAR */
+.menuBar {
+  background: #eefffd;
   height: 80px;
+  border-bottom: 2px solid #72d1ae;
+  box-shadow: 0 0 10px #72d1ae;
+  position: relative;
+  display: flex;
 }
 
-.menuBar h1{
+.options {
   display: inline;
+  position: absolute;
+  right: 0;
+  padding-right: 20px;
 }
 
-.dropbtn {
-  background-color: #04AA6D;
-  color: white;
+.menuBar p {
+  color: #72d1ae;
+  display: inline;
+  font-size: 2.5rem;
+  padding-top: 1rem;
+  padding-left: 2rem;
+  font-family: "Outfit", sans-serif;
+}
+
+._done {
+  all: unset;
+  background-color: #04aa6d;
   padding: 16px;
-  font-size: 16px;
-  border: none;
+  color: white;
+  border-radius: 50px;
+}
+
+._done:hover {
+  background-color: #0a9c67;
+  cursor: pointer;
+}
+
+._reset {
+  all: unset;
+  background-color: #04aa6d;
+  padding: 16px;
+  margin: 10px;
+  color: white;
+  border-radius: 50px;
+}
+
+._reset:hover {
+  background-color: #0a9c67;
+  cursor: pointer;
 }
 
 .dropdown {
   position: relative;
   display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.dropbtn {
+  background-color: #04aa6d;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px 10px 0 0;
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
 
-.dropdown-content button{
-  color: black;
-  padding: 12px 37px;
-  text-decoration: none;
+.dropdown-content > button {
+  all: unset;
+  background-color: #eefffd;
+  min-width: 96px;
+  border: 1px solid #04aa6d;
+}
+
+.dropdown-content > button:hover {
+  background-color: #04aa6d;
+  font-size: large;
+  color: white;
+  cursor: pointer;
+}
+
+.dropdown:hover .dropdown-content {
   display: block;
+  cursor: pointer;
 }
 
-.dropdown-content button:hover {background-color: #ddd;}
-
-.dropdown:hover .dropdown-content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: #3de7a9;}
-
-.dropdown{
-  margin : 10px;
-}
-
-._done{
-  all : unset;
-  background-color: #04AA6D;
-  padding : 16px;
-  color : white;
-}
-
-._done:hover{
-  background-color: #3de7a9;
-}
-
-
-._reset{
-  all : unset;
-  background-color: #04AA6D;
-  padding : 16px;
-  margin : 10px;
-  color : white;
-}
-
-._reset:hover{
-  background-color: #3de7a9;
+.choose {
+  color: red;
+  position: absolute;
+  z-index: 1;
+  padding-left: 30rem;
 }

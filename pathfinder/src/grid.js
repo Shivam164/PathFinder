@@ -256,7 +256,7 @@ for(let i = 0;i<50;i++){
         <div>
              
           <Navbar done = {()=>(setdoneChanging(1))} dfs = {()=>(setChooseAlgo(2))} bfs = {()=>(setChooseAlgo(1))} clear = {() => clear()}  arrays = {Gridarr} />
-          {chooseAlgo === -2 && <p>FIRST CHOOSE A TRAVERSAL</p>}
+          {chooseAlgo === -2 && <p className='choose'>* FIRST CHOOSE A TRAVERSAL</p>}
           <div className = "OuterBox">
             {arr.map((array) => (
                  <div className = "innerBox">
