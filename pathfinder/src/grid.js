@@ -20,34 +20,33 @@ class Pair {
 }
 
 
-     // function to get index of clicked element 
-     const index = (id) => {
-          let ind = 0;
-          console.log(id);
-          for(var i = 0;i<id.length;i++){
-               if(id[i]===" "){
-                    ind = i;
-                    break;
-               }
-          }
-          var x = Number(id.slice(0,ind));
-          var y = Number(id.slice(ind+1,id.length));
-          return [x,y];
-     }
-
-
-
-     var Gridarr = new Array(50);
-     var CalledBy = new Array(50);
-     const g = new Pair(-1,-1);
-     for(let i = 0;i<50;i++){
-          Gridarr[i] = new Array(70);
-          CalledBy[i] = new Array(70);
-          for(let j = 0;j<70;j++){
-               Gridarr[i][j] = 0;
-               CalledBy[i][j] = g;
+// function to get index of clicked element 
+const index = (id) => {
+     let ind = 0;
+     for(var i = 0;i<id.length;i++){
+          if(id[i]===" "){
+               ind = i;
+               break;
           }
      }
+     var x = Number(id.slice(0,ind));
+     var y = Number(id.slice(ind+1,id.length));
+     return [x,y];
+}
+
+
+
+var Gridarr = new Array(50);
+var CalledBy = new Array(50);
+const g = new Pair(-1,-1);
+for(let i = 0;i<50;i++){
+     Gridarr[i] = new Array(70);
+     CalledBy[i] = new Array(70);
+     for(let j = 0;j<70;j++){
+          Gridarr[i][j] = 0;
+          CalledBy[i][j] = g;
+     }
+}
 
     var arr = [];
     for(let i = 0;i<50;i++){
@@ -59,11 +58,14 @@ class Pair {
          arr.push(arr2)
     }
 
+    const ac = new AbortController();
+    const signal = ac.signal;
     const [mainArr,setMainArr] = useState(Gridarr);
     const [doneChanging,setdoneChanging] = useState(0);
     const [canChange,setcanChange] = useState(true);
     const [startingNode,setStartingNode] = useState([]);
     const [chooseAlgo, setChooseAlgo] = useState(-1); // changes for dfs
+    const [stop, setStop] = useState(false);
     const endingNode = [];
 
 
@@ -74,7 +76,6 @@ class Pair {
 
     // function to check a valid node : ------------------
     const check = (x,y) => {
-     //     console.log(x+" "+y);
          if(x<0 || y<0 || x>=50 || y>=70 || Gridarr[x][y]===-1 || Gridarr[x][y]===1)return false;
          return true;
     }
@@ -100,22 +101,26 @@ class Pair {
 
     var yellowNodes = [];
 
-    const doSomething = async () => {
-         console.log(yellowNodes);
-     for (const item of yellowNodes) {
-       await sleep(10)
-       console.log(item);
-       var g = index(item);
-       if(g[0]<0 || g[1]<0){
-          const item2 = -1*g[0] +" "+ (-1*g[1]);
-          document.getElementById(item2).style.background = "white";
-       }else{
-          document.getElementById(item).style.background = "#be2fe2";   
-       }
-         
-     }
-     var node = new Pair(endingNode[0],endingNode[1]);
-     findPath(node);
+    const doSomething = async ({ signal }) => {
+
+     
+          for (const item of yellowNodes) {
+               try{
+                    await sleep(10)
+                    var g = index(item);
+                    if(g[0]<0 || g[1]<0){
+                         const item2 = -1*g[0] +" "+ (-1*g[1]);
+                         document.getElementById(item2).style.background = "white";
+                    }else{
+                         document.getElementById(item).style.background = "#be2fe2";   
+                    }
+               }catch (e) {
+                         if(e.name !== 'AbortError') throw e;
+                    }
+          }
+          var node = new Pair(endingNode[0],endingNode[1]);
+          findPath(node);
+     
    }
 
     // ------------------------------------------------------------- code for bfs : 
@@ -141,7 +146,7 @@ class Pair {
                          var p = node.x +" "+node.y;
                          if(node.x===lastnode.x && node.y === lastnode.y){
                               done = true;
-                              doSomething();
+                              doSomething({ signal: ac.signal });
                               break;
                          }
                          yellowNodes.push(p);
@@ -162,7 +167,7 @@ class Pair {
      const lastnode = new Pair(endingNode[0],endingNode[1]);
 
      if(lastnode.x === node.x && node.y === lastnode.y){
-          doSomething();
+          doSomething({ signal: ac.signal });
           return true;
      }
 
@@ -190,9 +195,12 @@ class Pair {
 
 
     // -----------------------------------------------------------------------code for dfs ends here : 
+
+
+
      const changeColor = (e) => {
-          if(chooseAlgo === -1){
-               alert("First choose an alorithm :) ");
+          if(chooseAlgo === -1 || chooseAlgo === -2){
+               setChooseAlgo(-2);
                return;
           }
           Gridarr = mainArr;
@@ -211,13 +219,11 @@ class Pair {
                setStartingNode(v);
                e.target.style.background = "red";
                setdoneChanging(2);
-               console.log("first index : "+v[0]+" "+v[1]);
           }else{
                endingNode.push(v[0]);
                endingNode.push(v[1]);
                e.target.style.background = "blue";
                setcanChange(false);
-               console.log("endingNode : " + endingNode);
                Gridarr = mainArr;
                if(chooseAlgo==1){
                   bfs();  
@@ -229,25 +235,36 @@ class Pair {
           }
           
      }
+
+     const clear = () => {
+          for(let i = 0;i<50;i++){
+               for(let j = 0;j<70;j++){
+                    var id = i + " " +j;
+                    Gridarr[i][j] = 0;
+                    document.getElementById(id).style.background = "white";
+               }
+          }
+          setMainArr(Gridarr);
+          setdoneChanging(0);
+          setcanChange(true);
+          setChooseAlgo(-1);
+          setStop(true);
+     }
      
 
-    
     return ( 
         <div>
-             <Navbar/>
-             <button  onClick = {()=>(setdoneChanging(1))}>Done! Creating Barriers</button>
-               <button onClick = {()=> (setChooseAlgo(2))}>DFS</button>
-               <button onClick = {()=> (setChooseAlgo(1))}>BFS</button>
+             
+          <Navbar done = {()=>(setdoneChanging(1))} dfs = {()=>(setChooseAlgo(2))} bfs = {()=>(setChooseAlgo(1))} clear = {() => clear()}  arrays = {Gridarr} />
+          {chooseAlgo === -2 && <p>FIRST CHOOSE A TRAVERSAL</p>}
           <div className = "OuterBox">
             {arr.map((array) => (
                  <div className = "innerBox">
                       {array.map((nodes)=>(
                          <button className = "NodeButton" onClick = {changeColor}>
-                         <div className = "_node"  id = {nodes.z}></div>
-                         
-                      </button>    
+                              <div className = "_node"  id = {nodes.z}></div>
+                         </button>    
                       ))}
-                      <br />
                  </div>
                  
             ))}
