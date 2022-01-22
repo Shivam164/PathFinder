@@ -209,6 +209,9 @@ for(let i = 0;i<50;i++){
           var g = e.target.id;
           var v = index(g);
           if(Gridarr[v[0]][v[1]]===-1){
+               Gridarr[v[0]][v[1]] = 0;
+               setMainArr(Gridarr);
+               e.target.style.background = "white";
                return;
           }
 
