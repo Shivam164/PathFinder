@@ -11,7 +11,6 @@ const Navbar = (props) => {
                     {algo === 1 && <button class="dropbtn">BFS</button>}
                     {algo === 2 && <button class="dropbtn">DFS</button>}
                     {algo === -1 && <button class="dropbtn">Traversal</button>}
-                    {/* <button class="dropbtn">Traversal</button> */}
                     <div class="dropdown-content">
                         <button onClick = {props.dfs}>DFS</button>
                         <button onClick = {props.bfs}>BFS</button>

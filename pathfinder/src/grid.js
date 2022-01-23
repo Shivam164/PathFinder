@@ -258,31 +258,31 @@ const clear = () => {
 
 const showSave = () => {
      document.getElementsByClassName("changeIndex")[0].style.display = "block";
-     
 }
 
 
 return ( 
      <div className='Grid'>
-     <Template/>
-     <Navbar done = {()=>(setdoneChanging(1))} dfs = {()=>{setChooseAlgo(2); setAlgoset(false)}} bfs = {()=>{setChooseAlgo(1); setAlgoset(false)}} clear = {() => clear()}  arrays = {Gridarr} algo = {chooseAlgo}/>
-     {algoset && <p className='choose'>* FIRST CHOOSE A TRAVERSAL</p>}
-     <div className = "OuterBox">
-          {arr.map((array) => (
-               <div className = "innerBox">
-                    {array.map((nodes)=>(
-                    <button className = "NodeButton" onClick = {changeColor}>
-                         <div className = "_node"  id = {nodes.z}></div>
-                    </button>    
-                    ))}
-               </div>
-               
-          ))}
-     </div>
-     <div>
-          <button className = "_save" onClick={showSave}>SAVE</button> 
-     </div>
-     
+          <Template/>
+          <Navbar done = {()=>(setdoneChanging(1))} dfs = {()=>{setChooseAlgo(2); setAlgoset(false)}} bfs = {()=>{setChooseAlgo(1); setAlgoset(false)}} clear = {() => clear()}  arrays = {Gridarr} algo = {chooseAlgo}/>
+          {algoset && <p className='choose'>* FIRST CHOOSE A TRAVERSAL</p>}
+          <div className="_savediv">
+              <button className = "_save" onClick={showSave}>SAVE</button> 
+          </div>
+           
+          
+          <div className = "OuterBox">
+               {arr.map((array) => (
+                    <div className = "innerBox">
+                         {array.map((nodes)=>(
+                         <button className = "NodeButton" onClick = {changeColor}>
+                              <div className = "_node"  id = {nodes.z}></div>
+                         </button>    
+                         ))}
+                    </div>
+                    
+               ))}
+          </div>
      </div>
 );
 }

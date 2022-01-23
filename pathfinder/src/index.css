@@ -32,7 +32,6 @@ div {
 }
 
 .OuterBox {
-  display: block;
   margin-left: 7%;
   margin-top: 2%;
 }
@@ -104,6 +103,7 @@ div {
   font-size: 16px;
   border: none;
   border-radius: 10px 10px 0 0;
+  cursor: pointer;
 }
 
 .dropdown-content {
@@ -138,9 +138,9 @@ div {
   padding-left: 30rem;
 }
 
-._save {
+/* ._save {
   display: block;
-}
+} */
 
 .blurred {
   width: 100vw;
@@ -212,4 +212,21 @@ div {
   padding: 0.5rem;
   border-radius: 15px;
   margin-bottom: 0.5rem;
+}
+
+._savediv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  padding-bottom: 0;
+}
+
+._save {
+  all: unset;
+  background-color: #025336;
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
 }
