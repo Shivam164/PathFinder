@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Navbar from './Navbar';
-import Template from './saveTemplate';
 
 const Grid = () => {
 
@@ -263,14 +262,8 @@ const showSave = () => {
 
 return ( 
      <div className='Grid'>
-          <Template/>
           <Navbar done = {()=>(setdoneChanging(1))} dfs = {()=>{setChooseAlgo(2); setAlgoset(false)}} bfs = {()=>{setChooseAlgo(1); setAlgoset(false)}} clear = {() => clear()}  arrays = {Gridarr} algo = {chooseAlgo}/>
           {algoset && <p className='choose'>* FIRST CHOOSE A TRAVERSAL</p>}
-          <div className="_savediv">
-              <button className = "_save" onClick={showSave}>SAVE</button> 
-          </div>
-           
-          
           <div className = "OuterBox">
                {arr.map((array) => (
                     <div className = "innerBox">

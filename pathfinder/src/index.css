@@ -1,13 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&family=Outfit:wght@800&display=swap");
 
 * {
   margin: 0;
   padding: 0;
-  font-family: "Outfit", sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .NodeButton {
   all: unset;
+  cursor: pointer;
 }
 
 ._node {
@@ -38,7 +39,7 @@ div {
 
 /* NAVBAR */
 .menuBar {
-  background: #eefffd;
+  background: #272d3e;
   height: 80px;
   border-bottom: 2px solid #72d1ae;
   box-shadow: 0 0 10px #72d1ae;
@@ -53,8 +54,8 @@ div {
   padding-right: 20px;
 }
 
-.menuBar p {
-  color: #72d1ae;
+.menuBar > p {
+  color: white;
   display: inline;
   font-size: 2.5rem;
   padding-top: 1rem;
@@ -64,28 +65,30 @@ div {
 
 ._done {
   all: unset;
-  background-color: #04aa6d;
+  background-color: #272d3e;
   padding: 16px;
   color: white;
   border-radius: 50px;
+  border: 2px solid white;
 }
 
 ._done:hover {
-  background-color: #0a9c67;
+  box-shadow: 0 0 12px white;
   cursor: pointer;
 }
 
 ._reset {
   all: unset;
-  background-color: #04aa6d;
+  background-color: #272d3e;
   padding: 16px;
   margin: 10px;
   color: white;
   border-radius: 50px;
+  border: 2px solid white;
 }
 
 ._reset:hover {
-  background-color: #0a9c67;
+  box-shadow: 0 0 12px white;
   cursor: pointer;
 }
 
@@ -97,11 +100,11 @@ div {
 }
 
 .dropbtn {
-  background-color: #04aa6d;
+  background-color: #272d3e;
   color: white;
   padding: 16px;
   font-size: 16px;
-  border: none;
+  border: 2px solid white;
   border-radius: 10px 10px 0 0;
   cursor: pointer;
 }
@@ -114,13 +117,14 @@ div {
 
 .dropdown-content > button {
   all: unset;
-  background-color: #eefffd;
+  background-color: #00bac7;
   min-width: 96px;
   border: 1px solid #04aa6d;
+  border-radius: 4px;
 }
 
 .dropdown-content > button:hover {
-  background-color: #04aa6d;
+  background-color: #272d3e;
   font-size: large;
   color: white;
   cursor: pointer;
@@ -138,10 +142,6 @@ div {
   padding-left: 30rem;
 }
 
-/* ._save {
-  display: block;
-} */
-
 .blurred {
   width: 100vw;
   height: 100vh;
@@ -149,84 +149,4 @@ div {
   z-index: 2;
   background-color: black;
   opacity: 0.7;
-}
-
-.outerform {
-  background-color: white;
-  width: 25vw;
-  height: 20vh;
-  position: absolute;
-  z-index: 3;
-  top: 30%;
-  left: 30%;
-  padding: 5rem;
-  border: 2px solid white;
-  border-radius: 10px;
-  background-color: #72d1ae;
-}
-
-.innerform {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  opacity: 10;
-  z-index: 3;
-}
-
-.heading {
-  color: #025336;
-  font-size: xx-large;
-  margin-left: 5rem;
-  padding-bottom: 2rem;
-}
-
-.Grid {
-  position: relative;
-}
-
-.changeIndex {
-  display: none;
-  position: relative;
-}
-
-.innerform > button {
-  display: block;
-}
-
-.buttons > input {
-  margin-left: 1.5rem;
-  outline-width: 0;
-  color: rgb(44, 42, 42);
-}
-
-.buttons {
-  padding-bottom: 2rem;
-}
-
-.innerform > button {
-  all: unset;
-  background-color: #025336;
-  color: white;
-  padding: 0.5rem;
-  border-radius: 15px;
-  margin-bottom: 0.5rem;
-}
-
-._savediv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 3rem;
-  padding-bottom: 0;
-}
-
-._save {
-  all: unset;
-  background-color: #025336;
-  color: white;
-  padding: 1rem;
-  border-radius: 10px;
-  cursor: pointer;
 }
